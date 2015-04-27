@@ -9,6 +9,21 @@ MathJax.Hub.Config({
 <script type="text/javascript"
   src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET", "problems.xml", false);
+xmlhttp.send();
+document.write(xmlhttp.responseText);
+var xmlDoc = xmlhttp.responseXML; 
+var problems = xmlDoc.getElementsByTagName("problem");
+//window.onload = function() {
+//	var text = document.getElementById("text");
+	for (i = 0; i < problems.length; i++) {
+//		text.innerHTML = problems[i].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+		document.write(problems[i].getElementsByTagName("text")[0].childNodes[0].nodeValue);
+	}
+//}
+</script>
 </head>
 <body>
 <p>Найпростіша формула $1+\sqrt{1}{2}$</p>
