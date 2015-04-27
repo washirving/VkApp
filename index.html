@@ -1,5 +1,6 @@
 <html>
 <head>
+<link href="style.css" type="text/css" rel="stylesheet"></link>
 <script src="https://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -13,19 +14,34 @@ MathJax.Hub.Config({
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("GET", "problems.xml", false);
 xmlhttp.send();
-document.write(xmlhttp.responseText);
 var xmlDoc = xmlhttp.responseXML; 
 var problems = xmlDoc.getElementsByTagName("problem");
-//window.onload = function() {
-//	var text = document.getElementById("text");
+window.onload = function() {
+	var text = document.getElementById("text");
 	for (i = 0; i < problems.length; i++) {
-//		text.innerHTML = problems[i].getElementsByTagName("text")[0].childNodes[0].nodeValue;
-		document.write(problems[i].getElementsByTagName("text")[0].childNodes[0].nodeValue);
+		text.innerHTML = problems[i].getElementsByTagName("text")[0].childNodes[0].nodeValue;
 	}
-//}
-</script>
-</head>
-<body>
-<p>Найпростіша формула $1+\sqrt{1}{2}$</p>
+}
+</script><body>
+<header>
+<h1>Кенгуру Тест</h1>
+</header>
+<nav>
+<ul>
+	<li><a href="#">Кенгуру</a></li>
+	<li><a href="#">ЗНО Тренажер</a></li>
+</ul>
+</nav>
+<section>
+<h2></h2>
+<div id="list">
+	
+</div>
+</div>
+<div id="problem">
+	<div id="text">
+	</div>
+</div>
+</section>
 </body>
 </html>
