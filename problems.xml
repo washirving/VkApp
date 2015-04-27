@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problem id="1" type="quiz">
+	<text>80% чорно-білої фотографії покрито чорним кольором, і 20%  – білим. Фотографію збільшили в 3 рази. Скільки процентів поверхні збільшеної фотографії покрито білим кольором?</text>
+	<distractor id="1" label="А:">20%</distractor>
+	<distractor id="2" label="Б:">30%</distractor>
+	<distractor id="3" label="В:">40%</distractor>
+	<distractor id="4" label="Г:">60%</distractor>
+	<distractor id="5" label="Д:">80%</distractor>
+	<answer>4</answer>
+</problem>
