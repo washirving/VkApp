@@ -4,25 +4,79 @@
 <script src="https://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+	tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
 });
 </script>
-<script type="text/javascript"
-  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.open("GET", "problems.xml", false);
-xmlhttp.send();
-var xmlDoc = xmlhttp.responseXML; 
-var problems = xmlDoc.getElementsByTagName("problem");
-window.onload = function() {
+$(document).ready(function() {
+	var current = 0;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", "problems.xml", false);
+	xmlhttp.send();
+	var xmlDoc = xmlhttp.responseXML; 
+	var problems = xmlDoc.getElementsByTagName("problem");
+	var answers = new Array(problems.length);
+
 	var text = document.getElementById("text");
-	for (i = 0; i < problems.length; i++) {
-		text.innerHTML = problems[i].getElementsByTagName("text")[0].childNodes[0].nodeValue;
-	}
-}
-</script><body>
+	var distractors = document.getElementById("distractors");
+	text.innerHTML = problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+	var distractorsData = problems[0].getElementsByTagName("distractor");
+	var distractorsHTML = "";
+	for (var j = 0; j < distractorsData.length; j++) {
+		distractorsHTML += "<div class=\"distractor\">"
+		distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+		distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+		distractorsHTML += "</div>";
+ 	}
+	distractors.innerHTML = distractorsHTML;
+	
+	$("#next").click(function() {
+		answers[current] = $("input[name='distractors']:checked").val(); 
+		current = (current + 1) % problems.length;
+		
+		$("#caption").html("Задача № " + (current + 1));
+		text.innerHTML = problems[current].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+		var distractorsData = problems[current].getElementsByTagName("distractor");
+		var distractorsHTML = "";
+		for (var j = 0; j < distractorsData.length; j++) {
+			distractorsHTML += "<div class=\"distractor\">";
+			if (answers[current] == j) {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+			} else {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
+		}
+		distractors.innerHTML = distractorsHTML;
+	});
+	
+	$("#previous").click(function() {
+		answers[current] = $("input[name='distractors']:checked").val();
+		current = ((current - 1) + problems.length) % problems.length;		 
+		
+		$("#caption").html("Задача № " + (current + 1));
+		text.innerHTML = problems[current].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+		var distractorsData = problems[current].getElementsByTagName("distractor");
+		var distractorsHTML = "";
+		for (var j = 0; j < distractorsData.length; j++) {
+			distractorsHTML += "<div class=\"distractor\">";
+			if (answers[current] == j) {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+			} else {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
+		}
+		distractors.innerHTML = distractorsHTML;
+	});
+});
+
+</script>
+</head>
+<body>
 <header>
 <h1>Кенгуру Тест</h1>
 </header>
@@ -33,15 +87,21 @@ window.onload = function() {
 </ul>
 </nav>
 <section>
-<h2></h2>
-<div id="list">
-	
-</div>
-</div>
-<div id="problem">
-	<div id="text">
+	<header>
+		<div id="previous">
+			<a href="#">« попередня</a>
+		</div>
+		<h2 id="caption">Задача № 1</h2>
+		<div id="next">
+			<a href="#">наступна »</a>
+		</div>
+	</header>
+	<div id="problem">
+		<div id="text">
+		</div>
+		<div id="distractors">
+		</div>
 	</div>
-</div>
 </section>
 </body>
 </html>
