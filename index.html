@@ -1,107 +1,47 @@
 <html>
 <head>
 <link href="style.css" type="text/css" rel="stylesheet"></link>
+<meta charset="UTF-8">
 <script src="https://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-	tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-});
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-	var current = 0;
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.open("GET", "problems.xml", false);
-	xmlhttp.send();
-	var xmlDoc = xmlhttp.responseXML; 
-	var problems = xmlDoc.getElementsByTagName("problem");
-	var answers = new Array(problems.length);
-
-	var text = document.getElementById("text");
-	var distractors = document.getElementById("distractors");
-	text.innerHTML = problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue;
-	var distractorsData = problems[0].getElementsByTagName("distractor");
-	var distractorsHTML = "";
-	for (var j = 0; j < distractorsData.length; j++) {
-		distractorsHTML += "<div class=\"distractor\">"
-		distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
-		distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
-		distractorsHTML += "</div>";
- 	}
-	distractors.innerHTML = distractorsHTML;
-	
-	$("#next").click(function() {
-		answers[current] = $("input[name='distractors']:checked").val(); 
-		current = (current + 1) % problems.length;
-		
-		$("#caption").html("Задача № " + (current + 1));
-		text.innerHTML = problems[current].getElementsByTagName("text")[0].childNodes[0].nodeValue;
-		var distractorsData = problems[current].getElementsByTagName("distractor");
-		var distractorsHTML = "";
-		for (var j = 0; j < distractorsData.length; j++) {
-			distractorsHTML += "<div class=\"distractor\">";
-			if (answers[current] == j) {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
-			} else {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
-			}
-			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
-			distractorsHTML += "</div>";
+	$.ajax({
+		type: "GET",
+		url: "tests.xml",
+		dataType: "xml",
+		success: function(xml) {
+			$(xml).find("test").each(function() {
+				var title, test, description;
+				title = $(this).children("title").text();
+				path = $(this).children("path").text();
+				description = $(this).children("description").text();
+				test = "<article>";
+				test += "<h3><a href=\"" + path + "\">" + title + "</a></h3>";	
+				test += "<div class=\"description\">" + description + "</div>";
+				test += "</article>";
+				$("#tests").append(test);
+			});
+		},
+		error: function() {
+			alert("The file \"tests.xml\" is damaged or doesn't exist.");
 		}
-		distractors.innerHTML = distractorsHTML;
-	});
-	
-	$("#previous").click(function() {
-		answers[current] = $("input[name='distractors']:checked").val();
-		current = ((current - 1) + problems.length) % problems.length;		 
-		
-		$("#caption").html("Задача № " + (current + 1));
-		text.innerHTML = problems[current].getElementsByTagName("text")[0].childNodes[0].nodeValue;
-		var distractorsData = problems[current].getElementsByTagName("distractor");
-		var distractorsHTML = "";
-		for (var j = 0; j < distractorsData.length; j++) {
-			distractorsHTML += "<div class=\"distractor\">";
-			if (answers[current] == j) {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
-			} else {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
-			}
-			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
-			distractorsHTML += "</div>";
-		}
-		distractors.innerHTML = distractorsHTML;
 	});
 });
-
 </script>
 </head>
 <body>
 <header>
 <h1>Кенгуру Тест</h1>
-</header>
 <nav>
 <ul>
-	<li><a href="#">Кенгуру</a></li>
-	<li><a href="#">ЗНО Тренажер</a></li>
+	<li><a href="https://vk.com/math_kangaroo">Кенгуру</a></li>
+	<li><a href="index.html">ЗНО Тренажер</a></li>
 </ul>
 </nav>
-<section>
-	<header>
-		<div id="previous">
-			<a href="#">« попередня</a>
-		</div>
-		<h2 id="caption">Задача № 1</h2>
-		<div id="next">
-			<a href="#">наступна »</a>
-		</div>
-	</header>
-	<div id="problem">
-		<div id="text">
-		</div>
-		<div id="distractors">
-		</div>
-	</div>
+</header>
+<section id="tests">
+	<header><h2>Теми:</h2></header>
 </section>
 </body>
 </html>
