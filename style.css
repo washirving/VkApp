@@ -43,10 +43,12 @@ a:visited {
  Header (header)
 **************************/
 header {
-	float: left;
-	padding: 10px 7px 0px 0px;
+	padding: 10px 0px;
+	float: left; 
+	width: 100%;
 }
 header h1 {
+	float: left;
 	color: #45688E;
 	font-size: 15px;
 	font-weight: 700;
@@ -65,7 +67,7 @@ nav ul li {
 }
 nav ul li a {
 	display: block;
-	padding: 10px 16px;
+	padding: 0 0 0 16px;
 }
 nav ul li a:visited {
 	color: 
@@ -75,40 +77,53 @@ nav ul li a:visited {
 **************************/
 section {	
 	float: left;
-	display: block;
-}
-
-section header {
 	width: 100%;
+}
+section header {
+	float: left;
 	padding: 5px 0;
 }
-
-section header h2{
-	float: left;
+section h2{
 	font-weight: bold;
 	color: #45688E;
 	font-size: 13px;
-	padding: 0 10px;
+	float: left;
+}
+/**************************
+ #problem
+**************************/
+#problem h2 {
+	padding: 5px 0;
 }
 #next {
 	float: left;
+	padding-left: 10px;
 }
 #previous {
 	float: left;
+	padding-right: 10px;
 }
-input[type='radio'] {
+#problem {
+	float: left;
+	width: 100%;
+}
+#distractors {
+	float: left;
+	width: 100%;
+	
+}
+#distractors input[type='radio'] {
 	position: absolute;
 	opacity: 0;
 }
-
-input[type='radio'] + label {
+#distractors  input[type='radio'] + label {
+	cursor: pointer;
 	position: relative;
 	padding: 0 0 0 25px;
 	line-height: 19px;
 	margin: 0 0 10px 0;
 }
-
-input[type='radio'] + label:before {
+#distractors input[type='radio'] + label:before {
 	cursor: pointer;
 	content: "";
 	display: block;
@@ -121,7 +136,43 @@ input[type='radio'] + label:before {
 	box-shadow: inset 0px 0px 0px 2px white;
 	border-radius: 6px;
 }
-input[type='radio']:checked + label:before {
+#distractors input[type='radio']:checked + label:before {
 	cursor: pointer;
 	background: #45688E;
+}
+#text {
+	float: left;
+}
+/**************************
+ #tests
+**************************/
+#tests header {
+	background: none repeat scroll 0 0 #dee5eb;
+	float: left;
+	width: 100%;		
+	padding: 3px 0;
+	margin-top: 4px;
+}
+#tests header h2 {
+	font-size: 12px;
+	padding: 1px 0 1px 1.5%;
+}
+#tests article {
+	border-top: 1px solid #e7eaed;
+	float: left;
+	width: 100%;
+	padding: 4px 0 6px 0;
+}
+#tests article h3 {
+	font-weight: bold;
+	color: #45688E;
+	font-size: 13px;
+	padding: 4px 0 4px 3.25%;
+}
+#tests article .description {
+	font-size: 11px;
+	color: #333;
+	width: 98%;
+	float: left;
+	padding-left: 3.25%;
 }
