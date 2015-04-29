@@ -27,6 +27,7 @@ $(document).ready(function() {
 		distractorsHTML += "</div>";
  	}
 	distractors.innerHTML = distractorsHTML;
+	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
 	
 	$("#next").click(function() {
 		answers[current] = $("input[name='distractors']:checked").val(); 
@@ -85,20 +86,21 @@ $(document).ready(function() {
 </header>
 <section>
 	<header>
+		<h2 id="title"></h2>
+	</header>
+	<article>
 		<div id="previous">
 			<a href="javascript:void(null);">« попередня</a>
 		</div>
-		<h2 id="caption">Задача № 1</h2>
+		<h3 id="caption">Задача № 1</h3>
 		<div id="next">
 			<a href="javascript:void(null);">наступна »</a>
 		</div>
-	</header>
-	<div id="problem">
 		<div id="text">
 		</div>
 		<div id="distractors">
 		</div>
-	</div>
+	</article>
 </section>
 </body>
 </html>

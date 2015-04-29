@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<problems>
+<test>
+	<title>Тема: "Проценти"</title>
 	<problem id="0" type="quiz">
 		<text>80% чорно-білої фотографії покрито чорним кольором, і 20%  – білим. Фотографію збільшили в 3 рази. Скільки процентів поверхні збільшеної 	фотографії покрито білим кольором?</text>
 		<distractor id="1">А: 20%</distractor>
@@ -27,4 +28,4 @@
 		<distractor id="5">Д: 90%</distractor>
 		<answer>4</answer>
 	</problem>
-</problems>
+</test>
