@@ -1,0 +1,104 @@
+<html>
+<head>
+<link href="style.css" type="text/css" rel="stylesheet"></link>
+<meta charset="UTF-8">
+
+<script src="https://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+	var current = 0;
+    var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", "percentages.xml", false);
+	xmlhttp.send();
+	var xmlDoc = xmlhttp.responseXML; 
+	var problems = xmlDoc.getElementsByTagName("problem");
+	var answers = new Array(problems.length);
+
+	var text = document.getElementById("text");
+	var distractors = document.getElementById("distractors");
+	text.innerHTML = problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+	var distractorsData = problems[0].getElementsByTagName("distractor");
+	var distractorsHTML = "";
+	for (var j = 0; j < distractorsData.length; j++) {
+		distractorsHTML += "<div class=\"distractor\">"
+		distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+		distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+		distractorsHTML += "</div>";
+ 	}
+	distractors.innerHTML = distractorsHTML;
+	
+	$("#next").click(function() {
+		answers[current] = $("input[name='distractors']:checked").val(); 
+		current = (current + 1) % problems.length;
+		
+		$("#caption").html("Задача № " + (current + 1));
+		text.innerHTML = problems[current].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+		var distractorsData = problems[current].getElementsByTagName("distractor");
+		var distractorsHTML = "";
+		for (var j = 0; j < distractorsData.length; j++) {
+			distractorsHTML += "<div class=\"distractor\">";
+			if (answers[current] == j) {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+			} else {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
+		}
+		distractors.innerHTML = distractorsHTML;
+	});
+	
+	$("#previous").click(function() {
+		answers[current] = $("input[name='distractors']:checked").val();
+		current = ((current - 1) + problems.length) % problems.length;		 
+		
+		$("#caption").html("Задача № " + (current + 1));
+		text.innerHTML = problems[current].getElementsByTagName("text")[0].childNodes[0].nodeValue;
+		var distractorsData = problems[current].getElementsByTagName("distractor");
+		var distractorsHTML = "";
+		for (var j = 0; j < distractorsData.length; j++) {
+			distractorsHTML += "<div class=\"distractor\">";
+			if (answers[current] == j) {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+			} else {
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
+		}
+		distractors.innerHTML = distractorsHTML;
+	});
+});
+
+</script>
+</head>
+<body>
+<header>
+<h1>Кенгуру Тест</h1>
+<nav>
+<ul>
+	<li><a href="https://vk.com/math_kangaroo">Кенгуру</a></li>
+	<li><a href="../index.html">ЗНО Тренажер</a></li>
+</ul>
+</nav>
+</header>
+<section>
+	<header>
+		<div id="previous">
+			<a href="javascript:void(null);">« попередня</a>
+		</div>
+		<h2 id="caption">Задача № 1</h2>
+		<div id="next">
+			<a href="javascript:void(null);">наступна »</a>
+		</div>
+	</header>
+	<div id="problem">
+		<div id="text">
+		</div>
+		<div id="distractors">
+		</div>
+	</div>
+</section>
+</body>
+</html>
