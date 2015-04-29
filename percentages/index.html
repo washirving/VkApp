@@ -1,0 +1,47 @@
+<html>
+<head>
+<link href="style.css" type="text/css" rel="stylesheet"></link>
+<meta charset="UTF-8">
+<!--<script src="https://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "tests.xml",
+		dataType: "xml",
+		success: function(xml) {
+			$(xml).find("test").each(function() {
+				var title, test, description;
+				title = $(this).children("title").text();
+				path = $(this).children("path").text();
+				description = $(this).children("description").text();
+				test = "<article>";
+				test += "<h3><a href=\"" + path + "\">" + title + "</a></h3>";	
+				test += "<div class=\"description\">" + description + "</div>";
+				test += "</article>";
+				$("#tests").append(test);
+			});
+		},
+		error: function() {
+			alert("The file \"tests.xml\" is damaged or doesn't exist.");
+		}
+	});
+});
+</script>
+</head>
+<body>
+<header>
+<h1>Кенгуру Тест</h1>
+<nav>
+<ul>
+	<li><a href="https://vk.com/math_kangaroo">Кенгуру</a></li>
+	<li><a href="index.html">ЗНО Тренажер</a></li>
+</ul>
+</nav>
+</header>
+<section id="tests">
+	<header><h2>Теми:</h2></header>
+</section>
+</body>
+</html>
