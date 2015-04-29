@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+	<test id="0">
+		<title>Проценти</title>
+		<description>Тест на перевірку знань на тему: "Проценти".</description>
+		<path>./percentages/index.html</path>
+	</test>
+	<test id="1">
+		<title>Логарифм</title>
+		<description>Тест на перевірку знань на тему: "Логарифм".</description>
+		<path>./logarithm/index.html</path>
+	</test>
+	<test id="2">
+		<title>Тригонометрія</title>
+		<description>Тест на перевірку знань на тему: "Тригонометрія".</description>
+		<path>./trigonometry/index.html</path>
+	</test>
+</tests>
