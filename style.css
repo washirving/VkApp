@@ -27,6 +27,7 @@ body {
 	font-family: tahoma,arial,verdana,sans-serif,Lucida Sans;
 	font-weight: 400;
 	line-height: 15.4px;
+	width: 607px;
 }
 a {
 	color: #2B587A;
@@ -87,6 +88,14 @@ section header {
 	padding: 3px 0;
 	margin-top: 4px;
 }
+section header a {
+	color: #45688E;
+	border-radius: 2px;
+	float: right;
+	font-size: 12px;
+	padding: 1px 1.5% 1px 0;
+
+}
 section h2{
 	float: left;
 	font-weight: bold;
@@ -141,7 +150,7 @@ article h3 {
 	content: "";
 	display: block;
 	position: absolute;
-	top: 2px;
+	top: 1px;
 	height: 10px;
 	width: 10px;
 	background: white;
