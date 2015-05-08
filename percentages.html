@@ -84,13 +84,11 @@ $(document).ready(function() {
 		var data = result + "|" + answers.join();
 
 		VK.init(function() {
-			VK.api('users.get', {uids: 6492}, function(r) { 
-				if(r.response) { 
-					alert('Привет, ' + r.response[0].first_name); 
-				}	 
-			});
 			VK.api('storage.set', {key: 'percentages', value: data}, function(r) { 
-				alert("Set " + r.response[0]); 
+				alert("123");
+				if(r.response) { 
+					alert("Set " + r.response[0]);
+				}
 			});
 			VK.api('storage.get', {key: 'percentages'}, function(r) { 
 				if(r.response) { 
