@@ -90,9 +90,7 @@ $(document).ready(function() {
 				}	 
 			});
 			VK.api('storage.set', {key: 'percentages', value: data}, function(r) { 
-				if(r.response) { 
-					alert("Set " + r.response[0].error_msg); 
-				} 
+				alert("Set " + r.response[0]); 
 			});
 			VK.api('storage.get', {key: 'percentages'}, function(r) { 
 				if(r.response) { 
