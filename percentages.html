@@ -84,12 +84,12 @@ $(document).ready(function() {
 		var data = result + "|" + answers.join();
 
 		VK.init(function() {
-			VK.api('storage.set', {key: 'percentages', value: '123'}, function(r) { 
+			VK.api('storage.set', {key: 'percentages', value: data, global: 1}, function(r) { 
 				if(r.response) { 
 					alert("Set " + r.response);
 				}
 			});
-			VK.api('storage.get', {key: 'percentages'}, function(r) { 
+			VK.api('storage.get', {key: 'percentages', global: 1}, function(r) { 
 				if(r.response) { 
 					alert("Get " + r.response); 
 				} 
