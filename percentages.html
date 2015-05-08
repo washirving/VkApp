@@ -70,6 +70,33 @@ $(document).ready(function() {
 		}
 		distractors.innerHTML = distractorsHTML;
 	});
+	
+	$("#check").click(function() {
+		answers[current] = $("input[name='distractors']:checked").val();
+		var result = 0;
+		var correctAnswer;
+		for (var i = 0; i < problems.length; i++) {
+			correctAnswer = problems[i].getElementsByTagName("answer")[0].childNodes[0].nodeValue;
+			if (correctAnswer == answers[i]) {
+				result++;
+			}
+		}
+		var data = result + "|" + answers.join();
+
+		VK.init(function() {
+			VK.api.call('storage.set', {key: 'percentages', value: data}, function(r) { 
+				alert("123");
+				if(r.response) { 
+					alert(r.response[0].error_msg); 
+				} 
+			});
+			VK.api.call('storage.get', {key: 'percentages'}, function(r) { 
+				if(r.response) { 
+					alert(r.response[0]); 
+				} 
+			});
+		});
+	});
 });
 
 </script>
@@ -87,6 +114,7 @@ $(document).ready(function() {
 <section>
 	<header>
 		<h2 id="title"></h2>
+		<a id="check">Перевірити</a>
 	</header>
 	<article>
 		<div id="previous">
