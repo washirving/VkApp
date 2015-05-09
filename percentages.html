@@ -20,7 +20,7 @@ $(document).ready(function() {
 	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
 	$("#text").html(problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue);
 	for (var i = 0; i < problems.length; i++) {
-		correctAnswer[i] = problems[i].getElementsByTagName("answer")[0].childNodes[0].nodeValue;
+		correctAnswers[i] = problems[i].getElementsByTagName("answer")[0].childNodes[0].nodeValue;
 	}
 	
 	VK.init(function() {
@@ -41,7 +41,7 @@ $(document).ready(function() {
 						distractorsHTML += "class=\"incorrect\"";
 					}
 					distractorsHTML += " disabled";
-				} 
+				}
 				if (answers[current] == j) {
 					distractorsHTML += " checked>";
 				} else {
