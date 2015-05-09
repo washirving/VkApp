@@ -169,7 +169,7 @@ article h3 {
 	background: #45688E;
 }
 #distractors input[type='radio']:disabled + label:before {
-	background: #808080;
+	box-shadow: inset 0px 0px 0px 2px #D3D3D3;
 }
 #text {
 	float: left;
