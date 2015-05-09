@@ -31,7 +31,7 @@ $(document).ready(function() {
 	var distractorsData = problems[0].getElementsByTagName("distractor");
 	var distractorsHTML = "";
 	for (var j = 0; j < distractorsData.length; j++) {
-		distractorsHTML += "<div class=\"distractor\">"
+		distractorsHTML += "<div class=\"distractors\">";
 		if (answers[current] == j) {
 			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
 		} else {
@@ -53,7 +53,7 @@ $(document).ready(function() {
 		var distractorsData = problems[current].getElementsByTagName("distractor");
 		var distractorsHTML = "";
 		for (var j = 0; j < distractorsData.length; j++) {
-			distractorsHTML += "<div class=\"distractor\">";
+			distractorsHTML += "<div class=\"distractors\">";
 			if (answers[current] == j) {
 				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
 			} else {
