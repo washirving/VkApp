@@ -13,7 +13,17 @@ $(document).ready(function() {
 	xmlhttp.send();
 	var xmlDoc = xmlhttp.responseXML; 
 	var problems = xmlDoc.getElementsByTagName("problem");
-	var answers = new Array(problems.length);
+	var answers;
+	VK.init(function() {
+		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
+			if (r.response) {
+				answers = r.response.split("|")[1].split(",");
+				alert(answers.join());
+			} else {
+				answers = new Array(problems.length);
+			} 
+		});
+	});
 
 	var text = document.getElementById("text");
 	var distractors = document.getElementById("distractors");
@@ -28,14 +38,6 @@ $(document).ready(function() {
  	}
 	distractors.innerHTML = distractorsHTML;
 	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
-	VK.init(function() {
-		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
-			if (r.response) {
-				answers = r.response.split("|")[1].split(",");
-				alert(answers.join());
-			} 
-		});
-	});
 
 			
 	$("#next").click(function() {
