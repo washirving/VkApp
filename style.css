@@ -145,6 +145,12 @@ article h3 {
 	line-height: 19px;
 	margin: 0 0 10px 0;
 }
+#distractors .correct {
+	color: green;
+}
+#distractors .incorrect {
+	color: red;
+}
 #distractors input[type='radio'] + label:before {
 	cursor: pointer;
 	content: "";
@@ -161,6 +167,9 @@ article h3 {
 #distractors input[type='radio']:checked + label:before {
 	cursor: pointer;
 	background: #45688E;
+}
+#distractors input[type='radio']:disabled + label:before {
+	background: #808080;
 }
 #text {
 	float: left;
