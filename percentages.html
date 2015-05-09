@@ -24,7 +24,9 @@ $(document).ready(function() {
 			} 
 		});
 	});
+	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
 
+	
 	var text = document.getElementById("text");
 	var distractors = document.getElementById("distractors");
 	text.innerHTML = problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue;
@@ -40,9 +42,7 @@ $(document).ready(function() {
 		distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
 		distractorsHTML += "</div>";
  	}
-	distractors.innerHTML = distractorsHTML;
-	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
-
+	distractors.innerHTML = distractorsHTML;	
 			
 	$("#next").click(function() {
 		answers[current] = $("input[name='distractors']:checked").val(); 
@@ -74,7 +74,7 @@ $(document).ready(function() {
 		var distractorsData = problems[current].getElementsByTagName("distractor");
 		var distractorsHTML = "";
 		for (var j = 0; j < distractorsData.length; j++) {
-			distractorsHTML += "<div class=\"distractor\">";
+			distractorsHTML += "<div class=\"distractors\">";
 			if (answers[current] == j) {
 				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
 			} else {
