@@ -14,10 +14,14 @@ $(document).ready(function() {
 	var xmlDoc = xmlhttp.responseXML; 
 	var problems = xmlDoc.getElementsByTagName("problem");
 	var answers = new Array(problems.length);
+	var correctAnswers = new Array(problems.length);
 	var result = "";
 	
 	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
 	$("#text").html(problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue);
+	for (var i = 0; i < problems.length; i++) {
+		correctAnswer[i] = problems[i].getElementsByTagName("answer")[0].childNodes[0].nodeValue;
+	}
 	
 	VK.init(function() {
 		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
@@ -31,6 +35,11 @@ $(document).ready(function() {
 				distractorsHTML += "<div class=\"distractor\">";
 				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
 				if (result !== "") {
+					if (correctAnswers[i] == answers[i]) {
+						distractorsHTML += "class=\"correct\"";
+					} else {
+						distractorsHTML += "class=\"incorrect\"";
+					}
 					distractorsHTML += " disabled";
 				} 
 				if (answers[current] == j) {
@@ -91,10 +100,8 @@ $(document).ready(function() {
 	$("#check").click(function() {
 		answers[current] = $("input[name='distractors']:checked").val();
 		result = 0;
-		var correctAnswer;
 		for (var i = 0; i < problems.length; i++) {
-			correctAnswer = problems[i].getElementsByTagName("answer")[0].childNodes[0].nodeValue;
-			if (correctAnswer == answers[i]) {
+			if (correctAnswers[i] == answers[i]) {
 				result++;
 			}
 		}
