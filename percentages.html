@@ -14,6 +14,7 @@ $(document).ready(function() {
 	var xmlDoc = xmlhttp.responseXML; 
 	var problems = xmlDoc.getElementsByTagName("problem");
 	var answers = new Array(problems.length);
+	var result = "";
 	
 	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
 	$("#text").html(problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue);
@@ -21,16 +22,21 @@ $(document).ready(function() {
 	VK.init(function() {
 		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
 			if (r.response) {
+				result = r.response.split("|")[0];
 				answers = r.response.split("|")[1].split(",");
 			}
 			var distractorsData = problems[current].getElementsByTagName("distractor");
 			var distractorsHTML = "";
 			for (var j = 0; j < distractorsData.length; j++) {
 				distractorsHTML += "<div class=\"distractor\">";
+				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
+				if (result !== "") {
+					distractorsHTML += " disabled";
+				} 
 				if (answers[current] == j) {
-					distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+					distractorsHTML += " checked>";
 				} else {
-					distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+					distractorsHTML += ">";
 				}
 				distractorsHTML  += "<label for=\"distractor" + j + "\">" + 	distractorsData[j].childNodes[0].nodeValue  + "</label>";
 				distractorsHTML += "</div>";
@@ -84,7 +90,7 @@ $(document).ready(function() {
 	
 	$("#check").click(function() {
 		answers[current] = $("input[name='distractors']:checked").val();
-		var result = 0;
+		result = 0;
 		var correctAnswer;
 		for (var i = 0; i < problems.length; i++) {
 			correctAnswer = problems[i].getElementsByTagName("answer")[0].childNodes[0].nodeValue;
