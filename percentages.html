@@ -65,15 +65,24 @@ $(document).ready(function() {
 		var distractorsHTML = "";
 		for (var j = 0; j < distractorsData.length; j++) {
 			distractorsHTML += "<div class=\"distractor\">";
-			if (answers[current] == j) {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
-			} else {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
+			if (result !== "") {
+				if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
+					distractorsHTML += "class=\"correct\"";
+				} else if (answers[current] == j) {
+					distractorsHTML += "class=\"incorrect\"";
+				}
+				distractorsHTML += " disabled";
 			}
-			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
-			$("#distractors").html(distractorsHTML);
+			if (answers[current] == j) {
+				distractorsHTML += " checked>";
+			} else {
+				distractorsHTML += ">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\">" + 	distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
 		}
-		distractors.innerHTML = distractorsHTML;
+		$("#distractors").html(distractorsHTML);
 	});
 	
 	$("#previous").click(function() {
@@ -86,15 +95,24 @@ $(document).ready(function() {
 		var distractorsHTML = "";
 		for (var j = 0; j < distractorsData.length; j++) {
 			distractorsHTML += "<div class=\"distractor\">";
-			if (answers[current] == j) {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
-			} else {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
+			if (result !== "") {
+				if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
+					distractorsHTML += "class=\"correct\"";
+				} else if (answers[current] == j) {
+					distractorsHTML += "class=\"incorrect\"";
+				}
+				distractorsHTML += " disabled";
 			}
-			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
-			$("#distractors").html(distractorsHTML);
+			if (answers[current] == j) {
+				distractorsHTML += " checked>";
+			} else {
+				distractorsHTML += ">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\">" + 	distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
 		}
-		distractors.innerHTML = distractorsHTML;
+		$("#distractors").html(distractorsHTML);
 	});
 	
 	$("#check").click(function() {
