@@ -164,12 +164,13 @@ article h3 {
 	box-shadow: inset 0px 0px 0px 2px white;
 	border-radius: 6px;
 }
+#distractors input[type='radio']:disabled + label:before {
+	background: #D3D3D3;
+	box-shadow: inset 0px 0px 0px 2px #D3D3D3;
+}
 #distractors input[type='radio']:checked + label:before {
 	cursor: pointer;
 	background: #45688E;
-}
-#distractors input[type='radio']:disabled + label:before {
-	box-shadow: inset 0px 0px 0px 2px #D3D3D3;
 }
 #text {
 	float: left;
