@@ -35,11 +35,6 @@ $(document).ready(function() {
 				distractorsHTML += "<div class=\"distractor\">";
 				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
 				if (result !== "") {
-					if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
-						distractorsHTML += "class=\"correct\"";
-					} else if (answers[current] == j) {
-						distractorsHTML += "class=\"incorrect\"";
-					}
 					distractorsHTML += " disabled";
 				}
 				if (answers[current] == j) {
@@ -47,7 +42,15 @@ $(document).ready(function() {
 				} else {
 					distractorsHTML += ">";
 				}
-				distractorsHTML  += "<label for=\"distractor" + j + "\">" + 	distractorsData[j].childNodes[0].nodeValue  + "</label>";
+				distractorsHTML  += "<label for=\"distractor" + j + "\"";
+				if (result !== "") {
+					if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
+						distractorsHTML +=  "class=\"correct\"";
+					} else if (answers[current] == j) {
+						distractorsHTML += " class=\"incorrect\"";
+					}
+				}
+				distractorsHTML += ">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
 				distractorsHTML += "</div>";
 			}
 			$("#distractors").html(distractorsHTML);
@@ -67,11 +70,6 @@ $(document).ready(function() {
 			distractorsHTML += "<div class=\"distractor\">";
 			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
 			if (result !== "") {
-				if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
-					distractorsHTML += "class=\"correct\"";
-				} else if (answers[current] == j) {
-					distractorsHTML += "class=\"incorrect\"";
-				}
 				distractorsHTML += " disabled";
 			}
 			if (answers[current] == j) {
@@ -79,7 +77,15 @@ $(document).ready(function() {
 			} else {
 				distractorsHTML += ">";
 			}
-			distractorsHTML  += "<label for=\"distractor" + j + "\">" + 	distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML  += "<label for=\"distractor" + j + "\"";
+			if (result !== "") {
+				if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
+					distractorsHTML +=  "class=\"correct\"";
+				} else if (answers[current] == j) {
+					distractorsHTML += " class=\"incorrect\"";
+				}
+			}
+			distractorsHTML += ">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
 			distractorsHTML += "</div>";
 		}
 		$("#distractors").html(distractorsHTML);
@@ -95,12 +101,25 @@ $(document).ready(function() {
 		var distractorsHTML = "";
 		for (var j = 0; j < distractorsData.length; j++) {
 			distractorsHTML += "<div class=\"distractor\">";
-			if (answers[current] == j) {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
-			} else {
-				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
+			if (result !== "") {
+				distractorsHTML += " disabled";
 			}
-			distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			if (answers[current] == j) {
+				distractorsHTML += " checked>";
+			} else {
+				distractorsHTML += ">";
+			}
+			distractorsHTML  += "<label for=\"distractor" + j + "\"";
+			if (result !== "") {
+				if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
+					distractorsHTML +=  "class=\"correct\"";
+				} else if (answers[current] == j) {
+					distractorsHTML += " class=\"incorrect\"";
+				}
+			}
+			distractorsHTML += ">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
+			distractorsHTML += "</div>";
 		}
 		$("#distractors").html(distractorsHTML);
 	});
