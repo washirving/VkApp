@@ -14,33 +14,32 @@ $(document).ready(function() {
 	var xmlDoc = xmlhttp.responseXML; 
 	var problems = xmlDoc.getElementsByTagName("problem");
 	var answers = new Array(problems.length);
+	
+	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
+	$("#text").html(problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue);
+	
 	VK.init(function() {
 		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
 			if (r.response) {
 				answers = r.response.split("|")[1].split(",");
-				alert("answers[0] = " + answers[0]);
 			}
+			var distractors = document.getElementById("distractors");
+			var distractorsData = problems[0].getElementsByTagName("distractor");
+			var distractorsHTML = "";
+			for (var j = 0; j < distractorsData.length; j++) {
+				distractorsHTML += "<div class=\"distractors\">";
+				if (answers[current] == j) {
+					distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+				} else {
+					distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+				}
+				distractorsHTML  += "<label for=\"distractor" + j + "\">" + 	distractorsData[j].childNodes[0].nodeValue  + "</label>";
+				distractorsHTML += "</div>";
+			}
+			distractors.innerHTML = distractorsHTML;
 		});
 	});
-	
-	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
-	
-	var text = document.getElementById("text");
-	var distractors = document.getElementById("distractors");
-	text.innerHTML = problems[0].getElementsByTagName("text")[0].childNodes[0].nodeValue;
-	var distractorsData = problems[0].getElementsByTagName("distractor");
-	var distractorsHTML = "";
-	for (var j = 0; j < distractorsData.length; j++) {
-		distractorsHTML += "<div class=\"distractors\">";
-		if (answers[current] == j) {
-			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
-		} else {
-			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
-		}
-		distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
-		distractorsHTML += "</div>";
- 	}
-	distractors.innerHTML = distractorsHTML;	
+		
 			
 	$("#next").click(function() {
 		answers[current] = $("input[name='distractors']:checked").val(); 
