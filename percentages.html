@@ -18,7 +18,7 @@ $(document).ready(function() {
 		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
 			if (r.response) {
 				answers = r.response.split("|")[1].split(",");
-				alert(answers.join());
+				alert("new = " + answers.join());
 			} else {
 				answers = new Array(problems.length);
 			} 
@@ -32,7 +32,11 @@ $(document).ready(function() {
 	var distractorsHTML = "";
 	for (var j = 0; j < distractorsData.length; j++) {
 		distractorsHTML += "<div class=\"distractor\">"
-		distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+		if (answers[current] == j) {
+			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\" checked>";
+		} else {
+			distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\">";
+		}
 		distractorsHTML  += "<label for=\"distractor" + j + "\">" + distractorsData[j].childNodes[0].nodeValue  + "</label>";
 		distractorsHTML += "</div>";
  	}
