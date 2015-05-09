@@ -35,9 +35,9 @@ $(document).ready(function() {
 				distractorsHTML += "<div class=\"distractor\">";
 				distractorsHTML += "<input id=\"distractor" + j + "\" type=\"radio\"  name=\"distractors\" value=\"" + j + "\"";
 				if (result !== "") {
-					if (correctAnswers[i] == answers[i]) {
+					if ((correctAnswers[current] == answers[current]) && (answers[current] == j)) {
 						distractorsHTML += "class=\"correct\"";
-					} else {
+					} else if (answers[current] == j) {
 						distractorsHTML += "class=\"incorrect\"";
 					}
 					distractorsHTML += " disabled";
