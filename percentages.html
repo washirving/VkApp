@@ -28,7 +28,16 @@ $(document).ready(function() {
  	}
 	distractors.innerHTML = distractorsHTML;
 	$("#title").html(xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue);
-	
+	VK.init(function() {
+		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
+			if (r.response) {
+				answers = r.response.split("|")[1].split(",");
+				alert(answers.join());
+			} 
+		});
+	});
+
+			
 	$("#next").click(function() {
 		answers[current] = $("input[name='distractors']:checked").val(); 
 		current = (current + 1) % problems.length;
@@ -84,16 +93,7 @@ $(document).ready(function() {
 		var data = result + "|" + answers.join();
 
 		VK.init(function() {
-			VK.api('storage.set', {key: 'percentages', value: data, global: 1}, function(r) { 
-				if(r.response) { 
-					alert("Set " + r.response);
-				}
-			});
-			VK.api('storage.get', {key: 'percentages', global: 1}, function(r) { 
-				if(r.response) { 
-					alert("Get " + r.response); 
-				} 
-			});		
+			VK.api('storage.set', {key: 'math_kangaroo', value: data}, function() { });		
 		});
 	});
 });
