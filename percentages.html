@@ -18,7 +18,7 @@ $(document).ready(function() {
 		VK.api('storage.get', {key: 'math_kangaroo'}, function(r) { 
 			if (r.response) {
 				answers = r.response.split("|")[1].split(",");
-				alert("new = " + answers.join());
+				alert("answers[0] = " + answers[0]);
 			}
 		});
 	});
