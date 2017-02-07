@@ -2,23 +2,14 @@
 <head>
 <script src="http://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
 <script type="text/javascript" charset="cp1251" >
-
-function MG() {
-VK.init(
-function() 
-{
-VK.api("getProfiles", {uids:"1,2"}, function(data) 
-{ 
-f_name=data.response[0].first_name; 
-alert ("First_name: " + f_name);
-})
-})
-};
+    VK.api("users.get", function(data) {
+        alert(data.response[0].uid);
+    });
 </script>
 
 </head>
 <body>
 Test<br>
-<input type="button" value="TTT" onclick="MG()">
+<input type="button" value="DOOOOOOOOOOOO" onclick="do()">
 </body>
 </html>
